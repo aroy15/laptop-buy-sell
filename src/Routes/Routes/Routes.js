@@ -8,13 +8,13 @@ import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
 import ManageSellersBuyers from '../../Pages/Dashboard/ManageSellersBuyers/ManageSellersBuyers';
 import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
-import DisplayError from '../../Pages/DisplayError/DisplayError';
+import DisplayError from '../../Pages/Shared/DisplayError/DisplayError';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
-import SignUp from '../../Pages/Signup/SignUp';
 import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import SellersRoute from '../SellersRoute/SellersRoute';
+import SignUp from '../../Pages/SignUp/SignUp';
 
 const router = createBrowserRouter([
     {
