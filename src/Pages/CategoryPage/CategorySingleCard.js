@@ -24,7 +24,7 @@ const CategorySingleCard = ({ laptopItem }) => {
                 </div>
                 <div className="flex justify-between items-center border-t border-base-200 w-full pt-1 gap-3">
                     <span className='text-secondary font-semibold text-sm italic flex flex-wrap'><span className='pr-1'>Posted on:</span> {postedTime}</span>
-                    <label htmlFor="my-modal" className="btn h-auto min-h-0 bg-secondary hover:bg-green-600 border-0 rounded capitalize py-3 text-white flex gap-2"><FaPen/> Book Now</label>
+                    <label htmlFor="booking-modal" className="btn h-auto min-h-0 bg-secondary hover:bg-green-600 border-0 rounded capitalize py-3 text-white flex gap-2"><FaPen/> Book Now</label>
                 </div>
             </div>
         </div>
