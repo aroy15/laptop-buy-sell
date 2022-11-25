@@ -15,6 +15,7 @@ import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import SellersRoute from '../SellersRoute/SellersRoute';
 import SignUp from '../../Pages/SignUp/SignUp';
+import CategoryPage from '../../Pages/CategoryPage/CategoryPage';
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
             {
                 path:'/signup',
                 element:<SignUp></SignUp>
+            },
+            {
+                path:'/category/:cateName',
+                loader:({params})=>fetch(`http://localhost:5000/laptops/${params.cateName}`),
+                element:<CategoryPage></CategoryPage>
             },
             {
                 path:'/blog',
