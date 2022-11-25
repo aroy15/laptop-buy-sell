@@ -5,4 +5,7 @@
   padding-left:20px;
   padding-right:20px;
 }
-
+.card_left{
+  min-width:250px;
+  max-width:250px;
+}
