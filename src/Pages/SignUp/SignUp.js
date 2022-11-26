@@ -14,7 +14,7 @@ const SignUp = () => {
     const [signUpError, setSignUPError] = useState('');
     const [signUpLoading, setSignUpLoading] = useState(false);
 
-    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     // const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 

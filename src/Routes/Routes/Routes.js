@@ -56,21 +56,25 @@ const router = createBrowserRouter([
                 element:<MyOrders></MyOrders>
             },
             {
-                path:'/dashboard/allbuyers',
-                element:<SellersRoute><AllBuyers></AllBuyers></SellersRoute>
-            },
-            {
                 path:'/dashboard/myproducts',
-                element:<SellersRoute><MyProducts></MyProducts></SellersRoute>
-            },
-            {
-                path:'/dashboard/addproduct',
-                element:<SellersRoute><AddProduct></AddProduct></SellersRoute>
-            },
-            {
-                path:'/dashboard/managesellersbuyers',
-                element:<AdminRoute><ManageSellersBuyers></ManageSellersBuyers></AdminRoute>
-            },
+                element:<MyProducts></MyProducts>
+            }
+            // {
+            //     path:'/dashboard/allbuyers',
+            //     element:<SellersRoute><AllBuyers></AllBuyers></SellersRoute>
+            // },
+            // {
+            //     path:'/dashboard/myproducts',
+            //     element:<SellersRoute><MyProducts></MyProducts></SellersRoute>
+            // },
+            // {
+            //     path:'/dashboard/addproduct',
+            //     element:<SellersRoute><AddProduct></AddProduct></SellersRoute>
+            // },
+            // {
+            //     path:'/dashboard/managesellersbuyers',
+            //     element:<AdminRoute><ManageSellersBuyers></ManageSellersBuyers></AdminRoute>
+            // },
         ]
     }
 ])
