@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
+import FormBtn from '../../components/FormBtn';
 import { AuthContext } from '../../contexts/AuthProvider';
 import Loading from '../Shared/Loading/Loading';
 import CategoryBanner from './CategoryBanner';
@@ -42,8 +43,8 @@ const CategoryPage = () => {
             phone,
             location,
             productId: productData?._id,
-            image:productData?.image,
-            category:productData?.category,
+            image: productData?.image,
+            category: productData?.category,
         }
         console.log(bookingData)
         fetch('http://localhost:5000/booking', {
@@ -114,7 +115,7 @@ const CategoryPage = () => {
                             <p className="italic">Your Meeting Location:</p>
                             <input name="location" type="text" placeholder="Enter Your Meeting Location" className="input input-bordered py-2 h-auto w-full rounded-md" required />
                         </div>
-                        <button type='submit' className="btn bg-secondary hover:bg-green-600 border-0 rounded-md capitalize text-white w-full text-lg">Submit Booking</button>
+                        <FormBtn type="submit">Submit Booking</FormBtn>
                     </form>
                     {errorMessage && <p className='text-red-600 pt-3'>{errorMessage}</p>}
                 </div>
