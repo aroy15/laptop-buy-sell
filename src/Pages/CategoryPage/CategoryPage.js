@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -9,15 +10,58 @@ import CategorySingleCard from './CategorySingleCard';
 
 const CategoryPage = () => {
     const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('')
     const [productData, setProductData] = useState(null);
     const { user } = useContext(AuthContext);
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
 
     const laptopItems = useLoaderData();
 
-    const handleBooking = data => {
+    const handleBooking = event => {
+        event.preventDefault();
+        const form = event.target;
+        const buyerName = form.name.value;
+        const email = form.email.value;
+        const productName = form.productName.value;
+        const productPrice = form.productPrice.value;
+        const phone = form.phone.value;
+        const location = form.location.value;
+
+        if (!phone) {
+            return setErrorMessage('Phone number is required')
+        }
+        if (!location) {
+            return setErrorMessage('Location Name is required')
+        }
+
+        const bookingData = {
+            buyerName,
+            email,
+            productName,
+            productPrice,
+            phone,
+            location,
+            productId: productData?._id,
+            image:productData?.image,
+            category:productData?.category,
+        }
+        console.log(bookingData)
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(bookingData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Product successfully booked')
+                    document.querySelector('#booking-modal').checked = false;
+                }
+            })
+            .catch(err => console.log(err))
 
     }
 
@@ -45,34 +89,34 @@ const CategoryPage = () => {
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className='absolute top-3 right-3 text-xl text-red-600 cursor-pointer'><FaRegTimesCircle /></label>
                     <h3 className="font-bold text-2xl text-center mb-5 pt-1">Fill the Form to Book the Product</h3>
-                    <form onSubmit={handleSubmit(handleBooking)} className='flex flex-col gap-3'>
+                    <form onSubmit={handleBooking} className='flex flex-col gap-3'>
                         <div>
                             <p className="italic">User Name:</p>
-                            <input name='name' type="text" defaultValue={user?.displayName} placeholder="name" className="input input-bordered py-2 h-auto w-full rounded-md" readOnly />
+                            <input name='name' type="text" defaultValue={user?.displayName} placeholder="name" className="input input-bordered py-2 h-auto w-full rounded-md" disabled readOnly />
                         </div>
                         <div>
                             <p className="italic">Email Address:</p>
-                            <input name='email' type="email" defaultValue={user?.email} placeholder="Email" className="input input-bordered py-2 h-auto w-full rounded-md" readOnly />
+                            <input name='email' type="email" defaultValue={user?.email} placeholder="Email" className="input input-bordered py-2 h-auto w-full rounded-md" disabled readOnly />
                         </div>
                         <div>
                             <p className="italic">Product Name:</p>
-                            <input name='productName' type="text" defaultValue={productData?.name} placeholder="Product Name" className="input input-bordered py-2 h-auto w-full rounded-md" readOnly />
+                            <input name='productName' type="text" defaultValue={productData?.name} placeholder="Product Name" className="input input-bordered py-2 h-auto w-full rounded-md" disabled readOnly />
                         </div>
                         <div>
                             <p className="italic">Product Price ($):</p>
-                            <input name='productPrice' type="number" defaultValue={productData?.resalePrice} placeholder="Product Price" className="input input-bordered py-2 h-auto w-full rounded-md" readOnly />
+                            <input name='productPrice' type="number" defaultValue={productData?.resalePrice} placeholder="Product Price" className="input input-bordered py-2 h-auto w-full rounded-md" disabled readOnly />
                         </div>
                         <div>
                             <p className="italic">Your Phone Number:</p>
-                            <input type="tel" placeholder="Enter Your Phone Number" className="input input-bordered py-2 h-auto w-full rounded-md" required />
+                            <input name="phone" type="text" placeholder="Enter Your Phone Number" className="input input-bordered py-2 h-auto w-full rounded-md" required />
                         </div>
                         <div>
                             <p className="italic">Your Meeting Location:</p>
-                            <input type="text" placeholder="Enter Your Meeting Location" className="input input-bordered py-2 h-auto w-full rounded-md" required />
+                            <input name="location" type="text" placeholder="Enter Your Meeting Location" className="input input-bordered py-2 h-auto w-full rounded-md" required />
                         </div>
-                        <button type='submit'><label htmlFor="booking-modal" className="btn bg-secondary hover:bg-green-600 border-0 rounded-md capitalize text-white w-full text-lg">Submit Booking</label></button>
+                        <button type='submit' className="btn bg-secondary hover:bg-green-600 border-0 rounded-md capitalize text-white w-full text-lg">Submit Booking</button>
                     </form>
-
+                    {errorMessage && <p className='text-red-600 pt-3'>{errorMessage}</p>}
                 </div>
             </div>
         </>
