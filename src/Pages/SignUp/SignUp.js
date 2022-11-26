@@ -10,8 +10,10 @@ import Loading from '../Shared/Loading/Loading';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser, loading } = useContext(AuthContext);
+    const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');
+    const [signUpLoading, setSignUpLoading] = useState(false);
+
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     // const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
@@ -23,6 +25,8 @@ const SignUp = () => {
     const imageHostKey = process.env.REACT_APP_imageHostKey
 
     const handleSignUp = (userData) => {
+        setSignUpLoading(true);
+
         const { name, email, password, image, userRole } = userData;
         const imageFile = image[0];
         const formData = new FormData();
@@ -50,6 +54,7 @@ const SignUp = () => {
                             }
                             updateUser(userInfo)
                                 .then(() => {
+                                    setSignUpLoading(false)
                                     saveUser(name, email, photoURL, userRole);
                                 })
                                 .catch(err => console.log(err));
@@ -61,6 +66,18 @@ const SignUp = () => {
                 }
 
             })
+    }
+
+    const handleGoogleSignIn = () =>{ 
+        googleSignIn()
+        .then(result => {
+            const user = result.user;
+            const userRole = 'user'
+            const {displayName, email, photoURL} = user;
+            saveUser(displayName, email, photoURL, userRole);
+            navigate('/')            
+        })
+        .catch(error => setSignUPError(error.message))
     }
 
     const saveUser = (name, email, photoURL, userRole) => {
@@ -78,6 +95,7 @@ const SignUp = () => {
                 setCreatedUserEmail(email);
                 navigate('/')
             })
+            .catch(err => signUpError(err.message))
     }
 
 
@@ -128,12 +146,12 @@ const SignUp = () => {
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
 
-                    <FormBtn type="submit" className="my-4">{loading? <Loading/> : 'Sign Up'}</FormBtn>
+                    <FormBtn type="submit" className="my-4">{signUpLoading? <Loading/> : 'Sign Up'}</FormBtn>
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
                 </form>
                 <p>Already have an account? <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full rounded-md border-2 flex gap-2 items-center justify-center'><FaGoogle /> Sign Up with google</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full rounded-md border-2 flex gap-2 items-center justify-center'><FaGoogle /> Sign Up with google</button>
             </div>
         </section>
     );
