@@ -14,7 +14,7 @@ const MyProducts = () => {
     const closeModal = () => {
         setDeletingProduct(null);
     }
-
+   
     const url = `http://localhost:5000/myProducts?email=${user?.email}`;
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
@@ -40,7 +40,23 @@ const MyProducts = () => {
     }
 
     const handleAdvertise = id => {
-        console.log(id)
+        const url = `http://localhost:5000/advertise/${id}`;
+        fetch(url, {
+            method:'PATCH',
+            headers:{
+                'content-type':'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body:JSON.stringify({advertise:true})
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.modifiedCount > 0){
+                refetch()
+                toast.success('Product advertised successfully')
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     if (isLoading) {
@@ -74,11 +90,11 @@ const MyProducts = () => {
                                     <div className="flex gap-2">
                                         <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize"><FaTrash /> Delete</label>
                                         {
-                                            product.advertise? <span className='text-green-600'>Advertised</span>
-                                            :
-                                            <button onClick={()=>handleAdvertise(product._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Advertise</button>
+                                            product.advertise ? <span className='text-green-600'>Advertised</span>
+                                                :
+                                                <button onClick={() => handleAdvertise(product._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Advertise</button>
                                         }
-                                       
+
                                     </div>
                                 </td>
                             </tr>)
