@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Loading from '../../Shared/Loading/Loading';
+import { FaTrash } from 'react-icons/fa';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
@@ -27,17 +28,20 @@ const MyProducts = () => {
             return data;
         }
     })
-    const handleDeleteProduct = product =>{
+    const handleDeleteProduct = product => {
         console.log(product)
         axios.delete(`http://localhost:5000/deleteProduct/${product._id}`)
-        .then(() => {
-            refetch();
-            toast.success(`Deleted Successfully: ${product.name}`);
-        })
-        .catch(err => toast.error(`Something working when deleting: ${err}`))
+            .then(() => {
+                refetch();
+                toast.success(`Deleted Successfully: ${product.name}`);
+            })
+            .catch(err => toast.error(`Something working when deleting: ${err}`))
         // Dell Latitude 7480 Core i5 7th Gen Laptop	
     }
 
+    const handleAdvertise = id => {
+        console.log(id)
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -48,7 +52,7 @@ const MyProducts = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>SL No.</th>
+                            <th></th>
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Price</th>
@@ -67,7 +71,15 @@ const MyProducts = () => {
                                 <td>{product.name}</td>
                                 <td>${product.resalePrice}</td>
                                 <td>
-                                    <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm btn-error text-white rounded-md">Delete</label>
+                                    <div className="flex gap-2">
+                                        <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize"><FaTrash /> Delete</label>
+                                        {
+                                            product.advertise? <span className='text-green-600'>Advertised</span>
+                                            :
+                                            <button onClick={()=>handleAdvertise(product._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Advertise</button>
+                                        }
+                                       
+                                    </div>
                                 </td>
                             </tr>)
                         }

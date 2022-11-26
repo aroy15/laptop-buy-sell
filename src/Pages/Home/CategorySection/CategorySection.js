@@ -32,9 +32,9 @@ const CategorySection = () => {
     }
 
     return (
-        <section className='py-16 bg-light'>
+        <section className='py-16 bg-primary'>
             <div className="container">
-                <h2 className="text-4xl text-primary font-bold text-center mb-8">Laptop's Brand Category </h2>
+                <h2 className="text-4xl text-white font-bold text-center mb-8">Laptop's Brand Category </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     {
                         isLoading ? <Loading></Loading> 
