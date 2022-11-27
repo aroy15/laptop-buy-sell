@@ -63,9 +63,9 @@ const MyProducts = () => {
         return <Loading></Loading>
     }
     return (
-        <div className='mx-auto max-w-5xl pt-10'>
+        <div className='mx-auto max-w-5xl pt-10 px-5 xl:px-10'>
             <div className="overflow-x-auto">
-                <table className="table w-full">
+                <table className="table w-full" border="1">
                     <thead>
                         <tr>
                             <th></th>
