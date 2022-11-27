@@ -1,13 +1,7 @@
 import React from 'react';
 
 const ConfirmationModal = ({ title, message, successButtonName, closeModal, modalData, successAction }) => {
-   
-    // const modalSuccessFn = (modalData) =>{
-    //     successAction(modalData);
-    //     document.querySelector('.drawer-side').classList.remove('-z-[1]');
-    // }
-//    .drawer-side
-//  document.querySelector('.drawer-side').classList.add('-z-[1]');
+  
     return (
         <div>
             <input type="checkbox" id="confirmation-modal" className="modal-toggle" />
@@ -20,7 +14,7 @@ const ConfirmationModal = ({ title, message, successButtonName, closeModal, moda
                         onClick={() => successAction(modalData)} 
                         htmlFor="confirmation-modal" 
                         className="btn bg-secondary hover:bg-green-600 border-0 text-white rounded-md">{successButtonName}</label>
-                        <button onClick={closeModal} className='btn btn-outline rounded'>cancel</button>
+                        <button onClick={closeModal} className='btn btn-outline rounded'>Cancel</button>
                     </div>
                 </div>
             </div>

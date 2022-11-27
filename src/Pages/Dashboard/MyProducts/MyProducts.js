@@ -7,8 +7,7 @@ import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal'
 import Loading from '../../Shared/Loading/Loading';
 import { FaTrash } from 'react-icons/fa';
 
-const MyProducts = ({anjons}) => {
-    console.log(anjons)
+const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const [deletingProduct, setDeletingProduct] = useState(null);
 
@@ -101,7 +100,7 @@ const MyProducts = ({anjons}) => {
                                 <td>{product.name}</td>
                                 <td>{product.category}</td>
                                 <td>${product.resalePrice}</td>
-                                <td>Available</td>
+                                <td>{product.salesStatus}</td>
                                 <td>
                                     <div className="flex flex-col items-start gap-2">
                                         <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize"><FaTrash /> Delete</label>
