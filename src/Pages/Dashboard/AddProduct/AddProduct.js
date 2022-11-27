@@ -4,15 +4,16 @@ import { useForm } from 'react-hook-form';
 import FormBtn from '../../../components/FormBtn';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
     const [addProductLoading, setAddProductLoading] = useState(false);
     const [productError, setProductError] = useState('');
     const [categories, setCategories] = useState([]);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();    
 
-    const imageHostKey = process.env.REACT_APP_imageHostKey
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:5000/categories')
@@ -23,27 +24,27 @@ const AddProduct = () => {
             .catch(err => console.log(err))
     }, [])
 
+    const imageHostKey = process.env.REACT_APP_imageHostKey
+
     const handleAddProduct = data => {
         setProductError('')
         setAddProductLoading(true);
         const newData = { ...data };
         delete newData?.image;
 
-
         const date = format(new Date(), 'PP');
-
 
         if (data.category === 'chooseCategory') {
             setAddProductLoading(false)
             return setProductError('please choose a category')
         }
 
-
         const imageFile = data.image[0];
         const formData = new FormData();
         formData.append('image', imageFile)
-        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
 
+        // Upload image on imgbb
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
         fetch(url, {
             method: 'POST',
             body: formData
@@ -68,9 +69,23 @@ const AddProduct = () => {
                         email: user?.email,
                         seller: user?.displayName
                     }
-                    setProductError('');
-                    console.log(finalData)                    
-                    setAddProductLoading(false);
+                    // post product to backend
+                    fetch('http://localhost:5000/addProduct',{
+                        method:'POST',
+                        headers:{
+                            'content-type':'application/json',
+                            authorization:`bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body:JSON.stringify(finalData)
+                    })
+                    .then(res =>  res.json())
+                    .then(data => {
+                        console.log(data)                                            
+                        setAddProductLoading(false);
+                        navigate('/myproducts');
+                    })
+                    .catch(err =>  setProductError(err));
+                    console.log(finalData)
                 }
             })
             .catch(err => setProductError(err))

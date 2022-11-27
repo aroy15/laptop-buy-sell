@@ -6,10 +6,10 @@ const CategorySingleCard = ({ laptopItem, setProductData }) => {
     return (
         <div className="flex flex-col md:flex-row md:flex-nowrap gap-5 rounded-xl shadow-lg bg-white overflow-hidden">
             <figure className='p-4 flex items-center card_left md:mx-0 mx-auto'><img className='md:h-56 w-full object-contain object-center' src={image} alt={name} /></figure>
-            <div className='space-y-4 p-5'>
+            <div className='space-y-4 p-5 w-full'>
                 <h2 className="text-2xl text-primary">{name}</h2>
                 <p>{description}</p>
-                <div className='flex flex-col lg:flex-row lg:justify-between gap-8 text-primary'>
+                <div className='flex flex-col lg:flex-row lg:justify-between gap-8 text-primary w-full'>
                     <div className='flex flex-col gap-1 w-full lg:w-1/2'>
                         <p><strong>Re-sale Price:</strong> ${resalePrice}</p>
                         <p><strong>Original Price:</strong> ${originalPrice}</p>

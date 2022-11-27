@@ -1,6 +1,13 @@
 import React from 'react';
 
 const ConfirmationModal = ({ title, message, successButtonName, closeModal, modalData, successAction }) => {
+   
+    // const modalSuccessFn = (modalData) =>{
+    //     successAction(modalData);
+    //     document.querySelector('.drawer-side').classList.remove('-z-[1]');
+    // }
+//    .drawer-side
+//  document.querySelector('.drawer-side').classList.add('-z-[1]');
     return (
         <div>
             <input type="checkbox" id="confirmation-modal" className="modal-toggle" />

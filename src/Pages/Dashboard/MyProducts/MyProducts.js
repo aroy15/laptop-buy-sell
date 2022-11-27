@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
@@ -7,13 +7,26 @@ import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal'
 import Loading from '../../Shared/Loading/Loading';
 import { FaTrash } from 'react-icons/fa';
 
-const MyProducts = () => {
+const MyProducts = ({anjons}) => {
+    console.log(anjons)
     const { user } = useContext(AuthContext);
     const [deletingProduct, setDeletingProduct] = useState(null);
 
     const closeModal = () => {
         setDeletingProduct(null);
     }
+
+    // for dashboard sidebar layout;
+    // useEffect(()=>{
+    //     if(!deletingProduct){
+    //         document.querySelector('.drawer-side').classList.remove('-z-[1]');
+    //     }
+    // },[deletingProduct])
+
+    // const deletingProduct_sidebarLayoutFixed = (product) =>{
+    //     setDeletingProduct(product);
+    //     document.querySelector('.drawer-side').classList.add('-z-[1]');
+    // }
    
     const url = `http://localhost:5000/myProducts?email=${user?.email}`;
     const { data: products = [], isLoading, refetch } = useQuery({
@@ -28,15 +41,14 @@ const MyProducts = () => {
             return data;
         }
     })
-    const handleDeleteProduct = product => {
-        console.log(product)
+    const handleDeleteProduct = product => {       
+
         axios.delete(`http://localhost:5000/deleteProduct/${product._id}`)
             .then(() => {
                 refetch();
                 toast.success(`Deleted Successfully: ${product.name}`);
             })
             .catch(err => toast.error(`Something working when deleting: ${err}`))
-        // Dell Latitude 7480 Core i5 7th Gen Laptop	
     }
 
     const handleAdvertise = id => {
