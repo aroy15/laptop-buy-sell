@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaCheckCircle, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 
 const CategorySingleCard = ({ laptopItem, setProductData }) => {
-    const { name, category, categoryImage, image, location, yearsOfUse, resalePrice, originalPrice, postedTime, seller, verified, condition, mobile, description } = laptopItem;
+    const { name, category, categoryImage, image, location, yearsOfUse, resalePrice, originalPrice, postedTime, seller, condition, mobile, verified, description } = laptopItem;
+
     return (
         <div className="flex flex-col md:flex-row md:flex-nowrap gap-5 rounded-xl shadow-lg bg-white overflow-hidden">
             <figure className='p-4 flex items-center card_left md:mx-0 mx-auto'><img className='md:h-56 w-full object-contain object-center' src={image} alt={name} /></figure>

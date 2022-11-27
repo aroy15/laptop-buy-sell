@@ -72,7 +72,7 @@ const SignUp = () => {
         googleSignIn()
         .then(result => {
             const user = result.user;
-            const userRole = 'user'
+            const userRole = 'buyer'
             const {displayName, email, photoURL} = user;
             saveUser(displayName, email, photoURL, userRole);
             navigate('/')            
@@ -140,7 +140,7 @@ const SignUp = () => {
                         <select {...register("userRole", {
                             required: true
                         })} className="select select-bordered w-full max-w-xs rounded-md">
-                            <option defaultValue="user">user</option>
+                            <option defaultValue="buyer">buyer</option>
                             <option value="seller">seller</option>
                         </select>
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}

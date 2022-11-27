@@ -27,15 +27,15 @@ const AllSellers = () => {
         }
     })
 
-    const handleVerify = id =>{
-        const url = `http://localhost:5000/verifySeller/${id}`;
+    const handleVerify = email =>{
+        const url = `http://localhost:5000/makeVerifiedSeller?email=${email}`;
         fetch(url, {
             method:'PATCH',
             headers:{
                 'content-type':'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body:JSON.stringify({verify:true})
+            body:JSON.stringify({verified:true})
         })
         .then(res => res.json())
         .then(data =>{
@@ -57,11 +57,14 @@ const AllSellers = () => {
     }
 
     if (isLoading) {
-        return <Loading></Loading>
+        return <div className='py-52'>
+            <Loading></Loading>
+        </div>
     }
     return (
         <div className='mx-auto max-w-7xl py-10 px-5 xl:px-10'>
             <div className="overflow-x-auto">
+                <h2 className="text-3xl font-bold text-center pb-5">All Seller's Lists</h2>
                 <table className="table w-full">
                     <thead>
                         <tr>
@@ -83,7 +86,7 @@ const AllSellers = () => {
                                         {
                                             seller?.verified ? <span className='text-green-600'>Verified</span>
                                                 :
-                                                <button onClick={() => handleVerify(seller._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Verify</button>
+                                                <button onClick={() => handleVerify(seller.email)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Verify</button>
                                         }
     
                                     </div>

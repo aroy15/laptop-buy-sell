@@ -17,6 +17,7 @@ import SellersRoute from '../SellersRoute/SellersRoute';
 import SignUp from '../../Pages/SignUp/SignUp';
 import CategoryPage from '../../Pages/CategoryPage/CategoryPage';
 import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
+import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
 
 const router = createBrowserRouter([
     {
@@ -54,23 +55,27 @@ const router = createBrowserRouter([
         children:[
             {
                 path:'/dashboard',
+                element:<Dashboard></Dashboard>
+            },
+            {
+                path:'/dashboard/myorders',
                 element:<MyOrders></MyOrders>
             },
             {
                 path:'/dashboard/myproducts',
-                element:<MyProducts></MyProducts>
+                element:<SellersRoute><MyProducts></MyProducts></SellersRoute>
             },
             {
                 path:'/dashboard/addproduct',
-                element:<AddProduct></AddProduct>
+                element:<SellersRoute><AddProduct></AddProduct></SellersRoute>
             },
             {
                 path:'/dashboard/allbuyers',
-                element:<AllBuyers></AllBuyers>
+                element:<AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
             {
                 path:'/dashboard/allsellers',
-                element:<AllSellers></AllSellers>
+                element:<AdminRoute><AllSellers></AllSellers></AdminRoute>
             }
         ]
     }
