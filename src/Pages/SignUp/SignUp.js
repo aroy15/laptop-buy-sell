@@ -132,7 +132,7 @@ const SignUp = () => {
                         <label className="label"> <span className="label-text">Profile Picture</span></label>
                         <input type="file" {...register("image", {
                             required: "Profile Picture is required"
-                        })} className="file-input rounded-md w-full" />
+                        })} className="file-input rounded-md w-full" accept="image/*"/>
                         {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                     </div>
                     <div className="form-control w-full">

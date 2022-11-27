@@ -5,6 +5,7 @@ import FormBtn from '../../../components/FormBtn';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
@@ -80,9 +81,12 @@ const AddProduct = () => {
                     })
                     .then(res =>  res.json())
                     .then(data => {
-                        console.log(data)                                            
-                        setAddProductLoading(false);
-                        navigate('/myproducts');
+                        console.log(data)  
+                        if(data.acknowledged){
+                            setAddProductLoading(false);
+                            toast.success('Product Successfully added')
+                            navigate('/dashboard/myproducts');
+                        } 
                     })
                     .catch(err =>  setProductError(err));
                     console.log(finalData)
@@ -133,7 +137,7 @@ const AddProduct = () => {
                         <label className="label"> <span className="label-text">Product Image</span></label>
                         <input type="file" {...register("image", {
                             required: "Profile Picture is required"
-                        })} className="file-input input-bordered rounded-[5px!important] w-full" />
+                        })} className="file-input input-bordered rounded-[5px!important] w-full" accept="image/*"/>
                         {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                     </div>
                     <div className="form-control w-full">
