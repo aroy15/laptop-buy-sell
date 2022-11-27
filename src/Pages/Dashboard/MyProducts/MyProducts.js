@@ -75,15 +75,17 @@ const MyProducts = ({anjons}) => {
         return <Loading></Loading>
     }
     return (
-        <div className='mx-auto max-w-5xl py-10 px-5 xl:px-10'>
+        <div className='mx-auto max-w-7xl py-10 px-5 xl:px-10'>
             <div className="overflow-x-auto">
                 <table className="table w-full" border="1">
                     <thead>
                         <tr>
                             <th></th>
                             <th>Image</th>
-                            <th>Product Name</th>
+                            <th width='200'>Product Name</th>
+                            <th>Category</th>
                             <th>Price</th>
+                            <th>Sales Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -97,9 +99,11 @@ const MyProducts = ({anjons}) => {
                                     </div>
                                 </div></td>
                                 <td>{product.name}</td>
+                                <td>{product.category}</td>
                                 <td>${product.resalePrice}</td>
+                                <td>Available</td>
                                 <td>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col items-start gap-2">
                                         <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize"><FaTrash /> Delete</label>
                                         {
                                             product.advertise ? <span className='text-green-600'>Advertised</span>

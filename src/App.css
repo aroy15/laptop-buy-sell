@@ -9,6 +9,12 @@
   min-width:250px;
   max-width:250px;
 }
+.table{
+  min-width:700px;
+}
+.table :where(th, td) {
+  white-space: normal;
+}
 /* .drawer-toggle ~ .drawer-side{
   z-index: -1;
   position:relative;
