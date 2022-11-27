@@ -39,7 +39,8 @@ const AllSellers = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            if(data.modifiedCount > 0){
+            console.log(data)
+            if(data.result.modifiedCount > 0 && data.verifyThatUsersProducts.acknowledged){
                 refetch()
                 toast.success('User verified successfully')
             }

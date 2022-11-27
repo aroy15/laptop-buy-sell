@@ -8,10 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const AddProduct = () => {
+    
     const { user } = useContext(AuthContext);
     const [addProductLoading, setAddProductLoading] = useState(false);
     const [productError, setProductError] = useState('');
     const [categories, setCategories] = useState([]);
+    const [verifySeller, setVerifySeller] = useState('');
+    
     const { register, handleSubmit, formState: { errors } } = useForm();    
 
     const navigate = useNavigate();
@@ -25,11 +28,23 @@ const AddProduct = () => {
             .catch(err => console.log(err))
     }, [])
 
+    // Check verified seller
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users/seller/${user?.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setVerifySeller(data.isVerified);
+                })
+                .catch(err => console.log(err))
+    },[user?.email])
+
     const imageHostKey = process.env.REACT_APP_imageHostKey
 
     const handleAddProduct = data => {
         setProductError('')
         setAddProductLoading(true);
+        
+
         const newData = { ...data };
         delete newData?.image;
 
@@ -60,13 +75,14 @@ const AddProduct = () => {
 
                     console.log(categoryImage)
 
+
                     const finalData = {
                         ...newData,
                         image,
                         categoryImage,
                         postedTime: date,
                         advertise: false,
-                        verified: false,
+                        verified:verifySeller,
                         email: user?.email,
                         seller: user?.displayName
                     }
