@@ -1,10 +1,20 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import { FaDollarSign } from 'react-icons/fa';
+import React, { useContext, useState } from 'react';
+import { FaDollarSign, FaRegTimesCircle } from 'react-icons/fa';
+import FormBtn from '../../../components/FormBtn';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
+import PaymentCheckoutForm from './PaymentCheckoutForm';
+
+const stipePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 
 const MyOrders = () => {
+    // const [closingModal, setClosingModal] = useState(true);
+    const [singleBooking, setSingleBooking] = useState({});
+
+
     const { user } = useContext(AuthContext);
     const { data: bookings = [], isLoading, refetch } = useQuery({
         queryKey: ['bookings', user?.email],
@@ -18,14 +28,22 @@ const MyOrders = () => {
             return data
         }
     })
+
+    
+    const closingModal = () => {
+        setSingleBooking({})
+        refetch();
+    }
+
     if (isLoading) {
         return <div className='py-10'>
             <Loading></Loading>
         </div>
     }
 
-    const bookingsPayment = booking =>{
-        console.log(booking)
+    const bookingsPayment = booking => {
+        console.log(booking);
+        setSingleBooking(booking)
     }
 
     return (
@@ -58,13 +76,45 @@ const MyOrders = () => {
                                         </td>
                                         <td>{booking.productName}</td>
                                         <td>${booking.productPrice}</td>
-                                        <td><label onClick={() => bookingsPayment(booking)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md inline-flex gap-1 hover:bg-primary border-0 capitalize"><FaDollarSign /> Pay</label></td>
+                                        <td>
+                                            {
+                                                booking.productPrice && !booking?.paid &&
+                                                <label onClick={() => bookingsPayment(booking)} htmlFor="payment-modal" className="btn btn-sm bg-secondary text-white rounded-md inline-flex gap-1 hover:bg-primary border-0 capitalize"><FaDollarSign /> Pay</label>
+                                            }
+                                            {
+                                                booking.productPrice && booking?.paid &&
+                                                <span className='text-green-600 font-bold'>Paid</span>
+                                            }
+                                        </td>
                                     </tr>)
                                 }
                             </tbody>
                         </table>
                     </div>
             }
+            {/* Payment Modal */}
+
+            {
+                singleBooking?.productPrice &&
+                <>
+                    <input type="checkbox" id="payment-modal" className="modal-toggle" />
+                    <div className="modal">
+                        <div className="modal-box relative">
+                            <label htmlFor="payment-modal" className='absolute top-3 right-3 text-xl text-red-600 cursor-pointer'><FaRegTimesCircle /></label>
+                            <h3 className="font-bold text-2xl text-center pt-1">Give Payment to purchase product</h3>
+                            <h5 className="italic text-secondary pt-3 text-center">Product Name: {singleBooking.productName}</h5>
+                            <h5 className="italic font-bold text-secondary pt-2 pb-8 text-center">Price: ${singleBooking.productPrice}</h5>
+                            <Elements stripe={stipePromise}>
+                                <PaymentCheckoutForm
+                                    booking={singleBooking}
+                                    closingModal={closingModal}
+                                ></PaymentCheckoutForm>
+                            </Elements>
+                        </div>
+                    </div>
+                </>
+            }
+
         </div>
     )
 };

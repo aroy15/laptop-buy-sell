@@ -82,6 +82,7 @@ const AddProduct = () => {
                         postedTime: date,
                         advertise: false,
                         verified:verifySeller,
+                        paid:false,
                         email: user?.email,
                         seller: user?.displayName
                     }

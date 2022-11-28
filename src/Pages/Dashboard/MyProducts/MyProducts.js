@@ -26,7 +26,7 @@ const MyProducts = () => {
     //     setDeletingProduct(product);
     //     document.querySelector('.drawer-side').classList.add('-z-[1]');
     // }
-   
+
     const url = `http://localhost:5000/myProducts?email=${user?.email}`;
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
@@ -40,7 +40,7 @@ const MyProducts = () => {
             return data;
         }
     })
-    const handleDeleteProduct = product => {       
+    const handleDeleteProduct = product => {
 
         axios.delete(`http://localhost:5000/deleteProduct/${product._id}`)
             .then(() => {
@@ -53,21 +53,21 @@ const MyProducts = () => {
     const handleAdvertise = id => {
         const url = `http://localhost:5000/advertise/${id}`;
         fetch(url, {
-            method:'PATCH',
-            headers:{
-                'content-type':'application/json',
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body:JSON.stringify({advertise:true})
+            body: JSON.stringify({ advertise: true })
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.modifiedCount > 0){
-                refetch()
-                toast.success('Product advertised successfully')
-            }
-        })
-        .catch(err => console.log(err))
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    refetch()
+                    toast.success('Product advertised successfully')
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     if (isLoading) {
@@ -100,14 +100,15 @@ const MyProducts = () => {
                                 <td>{product.name}</td>
                                 <td>{product.category}</td>
                                 <td>${product.resalePrice}</td>
-                                <td>{product.salesStatus}</td>
+                                <td>{product.paid ? 'sold' : 'available'}</td>
                                 <td>
                                     <div className="flex flex-col items-start gap-2">
                                         <label onClick={() => setDeletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize"><FaTrash /> Delete</label>
                                         {
-                                            product.advertise ? <span className='text-green-600'>Advertised</span>
+                                            product.advertise && !product.paid? <span className='text-green-600'>Advertised</span>
                                                 :
-                                                <button onClick={() => handleAdvertise(product._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Advertise</button>
+                                                !product.paid ? <button onClick={() => handleAdvertise(product._id)} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize'>Advertise</button>
+                                                    : ''
                                         }
 
                                     </div>
