@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path:'/category/:cateName',
                 loader:({params})=>fetch(`http://localhost:5000/laptops/${params.cateName}`),
-                element:<CategoryPage></CategoryPage>
+                element:<PrivateRoute><CategoryPage></CategoryPage></PrivateRoute>
             },
             {
                 path:'/blog',

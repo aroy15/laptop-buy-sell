@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -35,6 +36,8 @@ const CategoryPage = () => {
             return setErrorMessage('Location Name is required')
         }
 
+        const bookingDate = format(new Date(), 'PP');
+
         const bookingData = {
             buyerName,
             email,
@@ -42,6 +45,7 @@ const CategoryPage = () => {
             productPrice,
             phone,
             location,
+            bookingDate,
             productId: productData?._id,
             image: productData?.image,
             category: productData?.category,

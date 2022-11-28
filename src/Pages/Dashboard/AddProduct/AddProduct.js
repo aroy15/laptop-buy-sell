@@ -43,7 +43,6 @@ const AddProduct = () => {
     const handleAddProduct = data => {
         setProductError('')
         setAddProductLoading(true);
-        
 
         const newData = { ...data };
         delete newData?.image;
