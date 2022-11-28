@@ -28,8 +28,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                // setLoginUserEmail(data.email);
-                // navigate(from, { replace: true });
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log(error.message)
@@ -91,7 +90,7 @@ const Login = () => {
                             className="input input-bordered rounded-md w-full" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    <FormBtn className="mt-4">Login</FormBtn>
+                    <FormBtn className="mt-4" type="submit">Login</FormBtn>
                     <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
                     </div>
