@@ -102,7 +102,7 @@ const SignUp = () => {
 
     return (
         <section className='py-16 flex justify-center items-center bg-white'>
-            <div className='w-96 p-7 shadow-lg border border-light rounded-lg'>
+            <div className='max-w-md w-full p-7 shadow-lg border border-light rounded-lg'>
                 <h2 className='text-xl text-center'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)} className="flex flex-col gap-1">
                     <div className="form-control w-full">
