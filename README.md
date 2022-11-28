@@ -24,4 +24,5 @@ Hosting: Hosting provided by firebase.
 
  ## Admin Information
 adminEmail: anjonroy24@gmail.com
+
 adminPassword: anjonProBdt

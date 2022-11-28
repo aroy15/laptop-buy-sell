@@ -39,7 +39,9 @@ const ReportedItems = () => {
     }
 
     if (isLoading) {
-        return <Loading></Loading>
+        return <div className='py-52'>
+            <Loading></Loading>
+        </div>
     }
     return (
         <div className='mx-auto max-w-7xl py-10 px-5 xl:px-10'>
