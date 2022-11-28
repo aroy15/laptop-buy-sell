@@ -83,6 +83,7 @@ const AddProduct = () => {
                         advertise: false,
                         verified:verifySeller,
                         paid:false,
+                        buyerReported:false,
                         email: user?.email,
                         seller: user?.displayName
                     }

@@ -95,7 +95,7 @@ const SignUp = () => {
                 setCreatedUserEmail(email);
                 navigate('/')
             })
-            .catch(err => signUpError(err.message))
+            .catch(err => setSignUPError(err.message))
     }
 
 

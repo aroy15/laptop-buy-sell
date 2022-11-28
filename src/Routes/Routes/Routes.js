@@ -5,7 +5,6 @@ import Main from '../../Layout/Main';
 import Blog from '../../Pages/Blog/Blog';
 import AddProduct from '../../Pages/Dashboard/AddProduct/AddProduct';
 import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
-import ManageSellersBuyers from '../../Pages/Dashboard/ManageSellersBuyers/ManageSellersBuyers';
 import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
 import DisplayError from '../../Pages/Shared/DisplayError/DisplayError';
@@ -18,6 +17,7 @@ import SignUp from '../../Pages/SignUp/SignUp';
 import CategoryPage from '../../Pages/CategoryPage/CategoryPage';
 import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
 import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
+import ReportedItems from '../../Pages/Dashboard/ReportedItems/ReportedItems';
 
 const router = createBrowserRouter([
     {
@@ -76,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/allsellers',
                 element:<AdminRoute><AllSellers></AllSellers></AdminRoute>
+            },
+            {
+                path:'/dashboard/reportedItems',
+                element:<AdminRoute><ReportedItems></ReportedItems></AdminRoute>
             }
         ]
     }

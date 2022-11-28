@@ -34,6 +34,7 @@ const DashboardLayout = () => {
                             <>
                                 <li><NavLink className={menuClasses} to="/dashboard/allsellers">All Sellers</NavLink></li>
                                 <li><NavLink className={menuClasses} to="/dashboard/allbuyers">All Buyers</NavLink></li>
+                                <li><NavLink className={menuClasses} to="/dashboard/reporteditems">Reported Items</NavLink></li>
                             </>
 
                         }

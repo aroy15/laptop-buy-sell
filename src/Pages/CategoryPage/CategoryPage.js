@@ -11,7 +11,8 @@ import CategoryBanner from './CategoryBanner';
 import CategorySingleCard from './CategorySingleCard';
 
 const CategoryPage = () => {
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
+    const [reportStatus, setReportStatus] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const [productData, setProductData] = useState(null);
     const { user } = useContext(AuthContext);
@@ -70,6 +71,28 @@ const CategoryPage = () => {
 
     }
 
+    
+    const handleReportedProduct = product =>{
+        // console.log(product._id);
+        const url = `http://localhost:5000/reportedProduct/${product?._id}`;
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ report: true })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Product Reported successfully')
+                    // setReportStatus(true)
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <>
             <CategoryBanner laptopItems={laptopItems[0]}></CategoryBanner>
@@ -81,6 +104,8 @@ const CategoryPage = () => {
                                 key={laptopItem._id}
                                 laptopItem={laptopItem}
                                 setProductData={setProductData}
+                                handleReportedProduct={handleReportedProduct}
+                                reportStatus={reportStatus}
                             ></CategorySingleCard>)
                         }
                     </div>
