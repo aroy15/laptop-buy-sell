@@ -19,7 +19,7 @@ const ReportedItems = () => {
     const {data:reportedProduct=[], isLoading, refetch} = useQuery({
         queryKey:['reportedProduct'],
         queryFn:async () =>{
-            const res = await fetch('http://localhost:5000/reportedProduct/',{
+            const res = await fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/reportedProduct/',{
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -30,7 +30,7 @@ const ReportedItems = () => {
     })
     const handleDeleteProduct = product => {
 
-        axios.delete(`http://localhost:5000/deleteProduct/${product._id}`)
+        axios.delete(`https://b612-used-products-resale-server-side-aroy15.vercel.app/deleteProduct/${product._id}`)
             .then(() => {
                 refetch();
                 toast.success(`Deleted Reported Item Successfully: ${product.name}`);

@@ -52,7 +52,7 @@ const CategoryPage = () => {
             category: productData?.category,
         }
         console.log(bookingData)
-        fetch('http://localhost:5000/booking', {
+        fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -74,7 +74,7 @@ const CategoryPage = () => {
     
     const handleReportedProduct = product =>{
         // console.log(product._id);
-        const url = `http://localhost:5000/reportedProduct/${product?._id}`;
+        const url = `https://b612-used-products-resale-server-side-aroy15.vercel.app/reportedProduct/${product?._id}`;
         fetch(url, {
             method: 'PATCH',
             headers: {

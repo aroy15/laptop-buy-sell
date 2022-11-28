@@ -20,7 +20,7 @@ const AddProduct = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/categories')
             .then(res => res.json())
             .then(data => {
                 setCategories(data)
@@ -30,7 +30,7 @@ const AddProduct = () => {
 
     // Check verified seller
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/seller/${user?.email}`)
+        fetch(`https://b612-used-products-resale-server-side-aroy15.vercel.app/users/seller/${user?.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setVerifySeller(data.isVerified);
@@ -88,7 +88,7 @@ const AddProduct = () => {
                         seller: user?.displayName
                     }
                     // post product to backend
-                    fetch('http://localhost:5000/addProduct',{
+                    fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/addProduct',{
                         method:'POST',
                         headers:{
                             'content-type':'application/json',

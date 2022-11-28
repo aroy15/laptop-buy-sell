@@ -27,7 +27,7 @@ const MyProducts = () => {
     //     document.querySelector('.drawer-side').classList.add('-z-[1]');
     // }
 
-    const url = `http://localhost:5000/myProducts?email=${user?.email}`;
+    const url = `https://b612-used-products-resale-server-side-aroy15.vercel.app/myProducts?email=${user?.email}`;
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
@@ -42,7 +42,7 @@ const MyProducts = () => {
     })
     const handleDeleteProduct = product => {
 
-        axios.delete(`http://localhost:5000/deleteProduct/${product._id}`)
+        axios.delete(`https://b612-used-products-resale-server-side-aroy15.vercel.app/deleteProduct/${product._id}`)
             .then(() => {
                 refetch();
                 toast.success(`Deleted Successfully: ${product.name}`);
@@ -51,7 +51,7 @@ const MyProducts = () => {
     }
 
     const handleAdvertise = id => {
-        const url = `http://localhost:5000/advertise/${id}`;
+        const url = `https://b612-used-products-resale-server-side-aroy15.vercel.app/advertise/${id}`;
         fetch(url, {
             method: 'PATCH',
             headers: {

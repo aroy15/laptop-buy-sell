@@ -16,7 +16,7 @@ const PaymentCheckoutForm = ({ booking, closingModal }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://b612-used-products-resale-server-side-aroy15.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const PaymentCheckoutForm = ({ booking, closingModal }) => {
                 bookingId: _id,
                 productId
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

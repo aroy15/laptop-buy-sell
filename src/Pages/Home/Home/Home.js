@@ -10,7 +10,7 @@ const Home = () => {
     const { data: advertisedItems = [], isLoading } = useQuery({
         queryKey: ['advertisedItems'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/advertise');
+            const res = await fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/advertise');
             const data = await res.json();
             return data;
         }

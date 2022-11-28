@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/category/:cateName',
-                loader:({params})=>fetch(`http://localhost:5000/laptops/${params.cateName}`),
+                loader:({params})=>fetch(`https://b612-used-products-resale-server-side-aroy15.vercel.app/laptops/${params.cateName}`),
                 element:<PrivateRoute><CategoryPage></CategoryPage></PrivateRoute>
             },
             {

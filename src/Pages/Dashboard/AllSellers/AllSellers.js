@@ -12,7 +12,7 @@ const AllSellers = () => {
     const closeModal = () => {
         setDeletingSellers(null);
     }
-    const url = 'http://localhost:5000/sellers';
+    const url = 'https://b612-used-products-resale-server-side-aroy15.vercel.app/sellers';
 
     const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
@@ -28,7 +28,7 @@ const AllSellers = () => {
     })
 
     const handleVerify = email =>{
-        const url = `http://localhost:5000/makeVerifiedSeller?email=${email}`;
+        const url = `https://b612-used-products-resale-server-side-aroy15.vercel.app/makeVerifiedSeller?email=${email}`;
         fetch(url, {
             method:'PATCH',
             headers:{
@@ -49,7 +49,7 @@ const AllSellers = () => {
     }
 
     const handleDeleteSeller = seller =>{
-        axios.delete(`http://localhost:5000/deleteUser/${seller._id}`)
+        axios.delete(`https://b612-used-products-resale-server-side-aroy15.vercel.app/deleteUser/${seller._id}`)
             .then(() => {
                 refetch();
                 toast.success(`Deleted Successfully: ${seller.name}`);

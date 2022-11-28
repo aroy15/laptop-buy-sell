@@ -51,7 +51,7 @@ const Login = () => {
     const saveUser = (name, email, photoURL, userRole) => {
         // const {name, email, photoURL, userRole} = userData;
         const user = { name, email, photoURL, userRole };
-        fetch('http://localhost:5000/users', {
+        fetch('https://b612-used-products-resale-server-side-aroy15.vercel.app/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
