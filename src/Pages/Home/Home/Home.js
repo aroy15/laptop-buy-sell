@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import WhatWeDo from '../WhatWeDo/WhatWeDo';
 import Advertise from '../Advertise/Advertise';
 import Banner from '../Banner/Banner';
 import CategorySection from '../CategorySection/CategorySection';
@@ -25,6 +26,7 @@ const Home = () => {
                 ></Advertise>
             }
             <CategorySection></CategorySection>
+            <WhatWeDo></WhatWeDo>
         </>
     );
 };
