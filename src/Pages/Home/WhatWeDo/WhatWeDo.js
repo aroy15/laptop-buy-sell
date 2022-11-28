@@ -8,7 +8,7 @@ const WhatWeDo = () => {
             <div className="container">
                 <div className="max-w-5xl w-full mx-auto">
                     <h2 className="text-3xl font-bold pb-5 text-center">What We Do?</h2>
-                    <div className="grid grid cols-1 grid lg:grid-cols-2 gap-8 text-xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xl">
                         <div className='flex justify-center flex-col gap-3'>
                             <div className="flex gap-2 items-start">
                                 <span><FaCheckSquare className='relative top-1' /></span>
