@@ -19,7 +19,11 @@ const Header = () => {
         {user?.uid ?
             <>
                 <li><Link to='/dashboard'>Dashboard</Link></li>
-                <button onClick={handleSignOut} className='btn btn-ghost'>Sign Out</button>
+                <button onClick={handleSignOut} className='btn btn-sm bg-secondary text-white rounded-md flex gap-1 hover:bg-primary border-0 capitalize lg:mt-2 lg:mx-2'>Sign Out</button>
+
+                <div title={user?.displayName} className='pt-2 pl-2 hidden xl:block'>
+                    <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt="" />
+                </div>
             </>
             :
             <li><Link to='/login'>Login</Link></li>
